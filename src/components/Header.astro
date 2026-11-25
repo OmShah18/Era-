@@ -1,0 +1,34 @@
+---
+/**
+ * Fixed header UI.
+ *  - home:  wrapped in `.theme_on-color`, logo scrolls to top, custom scrollbar + scroll hint.
+ *  - inner: logo links home and breadcrumbs are shown (no wrapper, no scrollbar).
+ */
+import HeaderLogo from './header/HeaderLogo.astro';
+import HeaderNav from './header/HeaderNav.astro';
+import ScrollIndicators from './header/ScrollIndicators.astro';
+import Breadcrumbs, { type Crumb } from './header/Breadcrumbs.astro';
+
+interface Props {
+  variant?: 'home' | 'inner';
+  crumbs?: Crumb[];
+}
+
+const { variant = 'home', crumbs = [] } = Astro.props;
+---
+
+{
+  variant === 'home' ? (
+    <div class="theme_on-color">
+      <HeaderLogo home />
+      <HeaderNav />
+      <ScrollIndicators />
+    </div>
+  ) : (
+    <Fragment>
+      <HeaderLogo home={false} />
+      <HeaderNav />
+      {crumbs.length > 0 && <Breadcrumbs crumbs={crumbs} />}
+    </Fragment>
+  )
+}

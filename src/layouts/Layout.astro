@@ -1,0 +1,84 @@
+---
+/**
+ * Document shell. Mirrors the Webflow <head> and the Barba wrapper/container structure
+ * that the animation runtime (src/scripts) expects.
+ *
+ * Stylesheet order matches the original cascade:
+ *   Adobe fonts -> webflow.shared.css -> <head> resets -> body embeds -> lenis.css
+ */
+import '~/styles/fonts.css';
+import '~/styles/webflow.css';
+import '~/styles/head.css';
+import '~/styles/embed.css';
+import 'lenis/dist/lenis.css';
+
+import LandscapeCover from '~/components/LandscapeCover.astro';
+import Preloader from '~/components/Preloader.astro';
+import Cookies from '~/components/Cookies.astro';
+import jsonLd from '~/data/jsonld.json';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Barba namespace for this page. */
+  namespace: string;
+}
+
+const { title, description, namespace } = Astro.props;
+const ogImage = new URL('/images/og-image.webp', Astro.site ?? Astro.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta content={description} name="description" />
+    <meta content={title} property="og:title" />
+    <meta content={description} property="og:description" />
+    <meta content={ogImage} property="og:image" />
+    <meta content={title} name="twitter:title" />
+    <meta content={description} name="twitter:description" />
+    <meta content={ogImage} name="twitter:image" />
+    <meta property="og:type" content="website" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <link rel="preload" href="/fonts/MaisonNeueExt-Book.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ambroise-francois-std-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sloop-script-three-400.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Webflow's html class flags (`w-mod-js`, `w-mod-touch`), set before first paint -->
+    <script is:inline>
+      !(function (o, c) {
+        var n = c.documentElement,
+          t = ' w-mod-';
+        ((n.className += t + 'js'),
+          ('ontouchstart' in o || (o.DocumentTouch && c instanceof DocumentTouch)) && (n.className += t + 'touch'));
+      })(window, document);
+    </script>
+
+    <link href="/favicon-32.png" rel="icon" type="image/png" sizes="32x32" />
+    <link href="/favicon-48.png" rel="icon" type="image/png" sizes="48x48" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+    <link href="/favicon-192.png" rel="icon" type="image/png" sizes="192x192" />
+    <link href="/favicon-512.png" rel="icon" type="image/png" sizes="512x512" />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body class="body">
+    <div data-barba="wrapper" class="transition-wrapper">
+      <LandscapeCover />
+      <Preloader />
+      <Cookies />
+      <main data-barba-namespace={namespace} data-barba="container" class="transition-container">
+        <slot />
+      </main>
+    </div>
+
+    <script>
+      import '~/scripts/main';
+    </script>
+  </body>
+</html>

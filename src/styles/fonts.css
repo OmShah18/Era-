@@ -1,0 +1,21 @@
+/*
+ * Display + accent faces. The original site loads these from Adobe Fonts (kit "pig8glj"),
+ * which is domain-locked. These are the kit's Latin "primer" subsets, self-hosted.
+ * NOTE: Adobe Fonts / Maison Neue are commercially licensed; make sure the deployment
+ * is covered by a licence (or swap in your own Adobe Fonts kit) before going live.
+ */
+@font-face {
+  font-family: 'ambroise-francois-std';
+  src: url('/fonts/ambroise-francois-std-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: 'sloop-script-three';
+  src: url('/fonts/sloop-script-three-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+}

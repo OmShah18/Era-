@@ -1,0 +1,34 @@
+---
+/**
+ * Inner-page breadcrumbs. The last crumb is the current page: it gets `href="#"`, which the
+ * runtime (`initOther`) turns into `.is-active`.
+ */
+export interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+---
+
+<div data-theme="" class="header-cramps">
+  {
+    crumbs.map((crumb, i) => (
+      <Fragment>
+        {i > 0 && <div class="l2 text-disabled">/</div>}
+        <a
+          hover-tab=""
+          aria-label={crumb.label}
+          hover-nav-item-l2=""
+          data-crumb-item=""
+          href={i === crumbs.length - 1 ? '#' : (crumb.href ?? '#')}
+          class="nav-item w-inline-block"
+        ><div class="nav-item_label"><div hover="text" class="nav-item_label_text"><div class="l2">{crumb.label}</div></div><div hover="text" class="nav-item_label_text is-2"><div class="l2">{crumb.label}</div></div></div></a>
+      </Fragment>
+    ))
+  }
+</div>

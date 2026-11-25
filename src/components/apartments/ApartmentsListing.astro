@@ -1,0 +1,548 @@
+---
+/**
+ * Apartments grid with type / bedroom filters and sorting (runtime: features/listing.ts,
+ * benefit-card interleaving: initBenefitCards in features/layout.ts).
+ */
+import WfImage from '~/components/WfImage.astro';
+import ApartmentCard from './ApartmentCard.astro';
+import { apartments, benefits } from '~/data/apartments';
+---
+
+<section class="section clip">
+  <div class="container">
+    <div class="apart-w">
+      <div class="apart-s">
+        <div class="u-48"></div>
+        <div class="u-272"></div>
+        <div class="grid">
+          <div data-sort="" data-filter="" class="apart-s_cms">
+            <div class="apart-s_title">
+              <h1 data-prevent-flicker="" data-scroll-reveal="h" class="h1 a-center mob_a-left">Apartments</h1>
+              <div data-prevent-flicker="" data-filter-count="" data-scroll-reveal="h" class="h1 a-right b-desk">0</div>
+            </div>
+            <div class="u-16"></div>
+            <div data-prevent-flicker="" data-scroll-reveal="ctn" class="apart-s_cms_filter">
+              <div class="apart-s_cms_filter_c">
+                <div class="grid _9-columns">
+                  <div class="apart-s_cms_filter_item">
+                    <div data-select="" class="filter_select">
+                      <div data-select="btn" class="filter_select_btn">
+                        <div class="l2 reg">Typology</div>
+                        <div class="filter_select_btn_label">
+                          <a hover-nav-item-l2="" aria-label="All" href="#" class="nav-item w-inline-block"
+                            ><div class="nav-item_label">
+                              <div hover="text" class="nav-item_label_text">
+                                <div data-select="value" class="l2">All</div>
+                              </div>
+                              <div hover="text" class="nav-item_label_text is-2">
+                                <div data-select="value" class="l2">All</div>
+                              </div>
+                            </div></a
+                          >
+                          <div hover="ico" class="ico-12">
+                            <div class="ico w-embed">
+                              <svg
+                                width="100%"
+                                height="100%"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17.1166 8.11436C17.6048 7.62682 18.3982 7.62641 18.8862 8.11436C19.3741 8.60232 19.3737 9.39569 18.8862 9.88389L12.8862 15.8839C12.398 16.372 11.6048 16.372 11.1166 15.8839L5.11662 9.88389C4.62846 9.39574 4.62846 8.60252 5.11662 8.11436C5.60483 7.62682 6.3982 7.62641 6.88615 8.11436L12.0014 13.2296L17.1166 8.11436Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-select="drop-down" class="filter_select_drop-down">
+                        <div class="filter_select_drop-down_list">
+                          <div
+                            data-select="item"
+                            data-filter-group="type"
+                            data-filter-trigger="*"
+                            hover-select-item=""
+                            class="filter_select_drop-down_list_item"
+                          >
+                            <div hover="text" class="l1">All</div>
+                          </div>
+                          <div class="cms w-dyn-list">
+                            <div role="list" class="filter_select_drop-down_list w-dyn-items">
+                              <div role="listitem" class="cms_list_item w-dyn-item">
+                                <div
+                                  data-select="item"
+                                  data-filter-group="type"
+                                  data-filter-trigger="ground-floor-basement"
+                                  hover-select-item=""
+                                  class="filter_select_drop-down_list_item"
+                                >
+                                  <div hover="text" class="l1">Ground floor + basement</div>
+                                </div>
+                              </div>
+                              <div role="listitem" class="cms_list_item w-dyn-item">
+                                <div
+                                  data-select="item"
+                                  data-filter-group="type"
+                                  data-filter-trigger="ground-floor"
+                                  hover-select-item=""
+                                  class="filter_select_drop-down_list_item"
+                                >
+                                  <div hover="text" class="l1">Ground Floor</div>
+                                </div>
+                              </div>
+                              <div role="listitem" class="cms_list_item w-dyn-item">
+                                <div
+                                  data-select="item"
+                                  data-filter-group="type"
+                                  data-filter-trigger="penthouse-duplex"
+                                  hover-select-item=""
+                                  class="filter_select_drop-down_list_item"
+                                >
+                                  <div hover="text" class="l1">Penthouse duplex</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="apart-s_cms_filter_item">
+                    <div data-select="" class="filter_select">
+                      <div hover-nav-item-l2-trigger="" data-select="btn" class="filter_select_btn">
+                        <div class="l2 reg">Bedrooms</div>
+                        <div class="filter_select_btn_label">
+                          <a hover-nav-item-l2="" aria-label="All" href="#" class="nav-item w-inline-block"
+                            ><div class="nav-item_label">
+                              <div hover="text" class="nav-item_label_text">
+                                <div data-select="value" class="l2">All</div>
+                              </div>
+                              <div hover="text" class="nav-item_label_text is-2">
+                                <div data-select="value" class="l2">All</div>
+                              </div>
+                            </div></a
+                          >
+                          <div hover="ico" class="ico-12">
+                            <div class="ico w-embed">
+                              <svg
+                                width="100%"
+                                height="100%"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17.1166 8.11436C17.6048 7.62682 18.3982 7.62641 18.8862 8.11436C19.3741 8.60232 19.3737 9.39569 18.8862 9.88389L12.8862 15.8839C12.398 16.372 11.6048 16.372 11.1166 15.8839L5.11662 9.88389C4.62846 9.39574 4.62846 8.60252 5.11662 8.11436C5.60483 7.62682 6.3982 7.62641 6.88615 8.11436L12.0014 13.2296L17.1166 8.11436Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-select="drop-down" class="filter_select_drop-down">
+                        <div class="filter_select_drop-down_list">
+                          <div
+                            data-select="item"
+                            data-filter-group="bed"
+                            data-filter-trigger="*"
+                            hover-select-item=""
+                            class="filter_select_drop-down_list_item"
+                          >
+                            <div hover="text" class="l1">All</div>
+                          </div>
+                          <div class="cms w-dyn-list">
+                            <div role="list" class="filter_select_drop-down_list w-dyn-items">
+                              <div role="listitem" class="cms_list_item w-dyn-item">
+                                <div
+                                  data-select="item"
+                                  data-filter-group="bed"
+                                  data-filter-trigger="2"
+                                  hover-select-item=""
+                                  class="filter_select_drop-down_list_item"
+                                >
+                                  <div hover="text" class="l1">2</div>
+                                </div>
+                              </div>
+                              <div role="listitem" class="cms_list_item w-dyn-item">
+                                <div
+                                  data-select="item"
+                                  data-filter-group="bed"
+                                  data-filter-trigger="3"
+                                  hover-select-item=""
+                                  class="filter_select_drop-down_list_item"
+                                >
+                                  <div hover="text" class="l1">3</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="apart-s_cms_filter_item is-last">
+                    <div data-select="" class="filter_select">
+                      <div data-select="btn" class="filter_select_btn">
+                        <div class="l2 reg">Sort by</div>
+                        <div class="filter_select_btn_label">
+                          <a hover-nav-item-l2="" aria-label="Relevant" href="#" class="nav-item w-inline-block"
+                            ><div class="nav-item_label">
+                              <div hover="text" class="nav-item_label_text">
+                                <div data-select="value" class="l2">Relevant</div>
+                              </div>
+                              <div hover="text" class="nav-item_label_text is-2">
+                                <div data-select="value" class="l2">Relevant</div>
+                              </div>
+                            </div></a
+                          >
+                          <div hover="ico" class="ico-12">
+                            <div class="ico w-embed">
+                              <svg
+                                width="100%"
+                                height="100%"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M17.1166 8.11436C17.6048 7.62682 18.3982 7.62641 18.8862 8.11436C19.3741 8.60232 19.3737 9.39569 18.8862 9.88389L12.8862 15.8839C12.398 16.372 11.6048 16.372 11.1166 15.8839L5.11662 9.88389C4.62846 9.39574 4.62846 8.60252 5.11662 8.11436C5.60483 7.62682 6.3982 7.62641 6.88615 8.11436L12.0014 13.2296L17.1166 8.11436Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div data-select="drop-down" class="filter_select_drop-down">
+                        <div class="filter_select_drop-down_list">
+                          <div
+                            data-select="item"
+                            data-sort-order="asc"
+                            data-sort-trigger="relevant"
+                            hover-select-item=""
+                            class="filter_select_drop-down_list_item"
+                          >
+                            <div hover="text" class="l1">Relevant</div>
+                          </div>
+                          <div
+                            data-select="item"
+                            data-sort-order="asc"
+                            data-sort-trigger="area"
+                            hover-select-item=""
+                            class="filter_select_drop-down_list_item"
+                          >
+                            <div hover="text" class="l1">Smallest area</div>
+                          </div>
+                          <div
+                            data-select="item"
+                            data-sort-order="desc"
+                            data-sort-trigger="area"
+                            hover-select-item=""
+                            class="filter_select_drop-down_list_item"
+                          >
+                            <div hover="text" class="l1">Largest area</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <a data-reset="" aria-label="Reset" hover-nav-item-l2="" href="#" class="nav-item w-inline-block"
+                      ><div class="nav-item_label">
+                        <div hover="text" class="nav-item_label_text"><div class="l2">Reset</div></div>
+                        <div hover="text" class="nav-item_label_text is-2"><div class="l2">Reset</div></div>
+                      </div></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="apart-s_cms_decor">
+                <div data-wf--decor--variant="med" class="decor">
+                  <div class="frame_l-tb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="50%"
+                        y1="0%"
+                        x2="50%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_lt w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_t-lr w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="50%"
+                        x2="100%"
+                        y2="50%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_rt w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_r-tb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="50%"
+                        y1="0%"
+                        x2="50%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_rb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_b-lr w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="50%"
+                        x2="100%"
+                        y2="50%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_lb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-16 b-desk"></div>
+            <div class="u-8 b-mob"></div>
+            <div data-prevent-flicker="" data-scroll-reveal="ctn" class="apart-cms w-dyn-list">
+              <div data-sort-list="" data-filter-list="" role="list" class="apart-cms_list w-dyn-items">
+                {apartments.map((apartment) => <ApartmentCard apartment={apartment} />)}
+              </div>
+            </div>
+            <!-- Benefit cards: moved into the grid above at runtime by initBenefitCards. -->
+            <div class="apart-cms w-dyn-list">
+              <div role="list" class="apart-cms_list w-dyn-items">
+                {
+                  benefits.map((benefit) => (
+                    <div role="listitem" class="apart-cms_list_item w-dyn-item">
+                      <div class="benefit-card theme_on-color">
+                        <div class="benefit-card_info">
+                          <h3 data-scroll-reveal="p" class="h5">{benefit.title}</h3>
+                          <div class="u-12"></div>
+                          <p data-scroll-reveal="p" class="p1">{benefit.text}</p>
+                        </div>
+                        <div class="benefit-card_bg">
+                          <div data-parallax="w" class="img-w">
+                            <WfImage src={benefit.image} loading="eager" data-parallax="img" alt="" class="img-p" />
+                            <div class="img-over-grad"></div>
+                            <div class="img-over-grad"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <div data-filter-empty="" class="apart-s_cms_empty">
+              <div class="apart-s_cms_decor">
+                <div data-wf--decor--variant="med" class="decor">
+                  <div class="frame_l-tb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="50%"
+                        y1="0%"
+                        x2="50%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_lt w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_t-lr w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="50%"
+                        x2="100%"
+                        y2="50%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_rt w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_r-tb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="50%"
+                        y1="0%"
+                        x2="50%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_rb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="100%"
+                        x2="100%"
+                        y2="0%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_b-lr w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="50%"
+                        x2="100%"
+                        y2="50%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                  <div class="frame_lb w-variant-db77920b-274b-9558-1ced-34e87f5b7d94 w-embed">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                        stroke-width="1"
+                        stroke="currentColor"
+                        vector-effect="non-scaling-stroke"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="grid _9-columns">
+                <div class="apart-s_cms_empty_info">
+                  <div class="apart-s_cms_empty_title"><div class="c1 a-center">nothing found</div></div>
+                  <div class="u-24"></div>
+                  <div class="p1 a-center">
+                    We didn&#x27;t find anything for your request. Please, try changing your search settings
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-16"></div>
+          </div>
+        </div>
+        <div class="u-160"></div>
+      </div>
+      <div data-video-playpause="" data-parallax="ctn-down" class="flower apart">
+        <video
+          muted=""
+          playsinline="playsinline"
+          loop=""
+          disablepictureinpicture=""
+          webkit-playsinline="webkit-playsinline"
+          poster="/images/bougainvillea-flowers_05.avif"
+          class="video"
+        >
+          <source src="/media/flowers/bougainvillea-flowers_05.webm" type="video/webm" />
+          <source src="/media/flowers/bougainvillea-flowers_05.mov" type="video/mp4" />
+        </video>
+      </div>
+      <div class="apart_themes">
+        <div class="themes_row">
+          <div data-bg="light" class="apart_themes_light-1"></div>
+          <div data-bg="color" class="apart_themes_color-1"></div>
+        </div>
+        <div data-bg="light" class="apart_themes_light-2"></div>
+      </div>
+    </div>
+  </div>
+</section>

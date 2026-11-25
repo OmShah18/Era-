@@ -1,0 +1,26 @@
+---
+import Layout from '~/layouts/Layout.astro';
+
+import Header from '~/components/Header.astro';
+import ApartmentsListing from '~/components/apartments/ApartmentsListing.astro';
+import Cta from '~/components/sections/Cta.astro';
+import Footer from '~/components/sections/Footer.astro';
+import BookCallModal from '~/components/BookCallModal.astro';
+import MenuModal from '~/components/MenuModal.astro';
+
+import ctaImage from '~/assets/images/era-residence-garden-2.webp';
+---
+
+<Layout
+  namespace="apartments"
+  title="Apartments — ERA Residence Estepona"
+  description="Explore ground floor residences, duplexes and penthouses designed for contemporary Mediterranean living on Costa del Sol."
+>
+  <Header variant="inner" crumbs={[{ label: 'Home', href: '/' }, { label: 'Select an Apartment' }]} />
+  <ApartmentsListing />
+  <Cta image={ctaImage} />
+  <Footer toTop={false} />
+
+  <BookCallModal />
+  <MenuModal />
+</Layout>
